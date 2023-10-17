@@ -1,4 +1,3 @@
-const { log } = require("console");
 const dataset = require("../data/dataset");
 
 const addRecord = (req, res) => {

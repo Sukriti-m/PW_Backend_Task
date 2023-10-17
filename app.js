@@ -13,7 +13,7 @@ app.get("/", (req, res) => {
 
 const apiPrefix = "/api/v1";
 app.use(`${apiPrefix}/records`, recordsRoute);
-//app.use(`${apiPrefix}/stats`, statsRoute);
+app.use(`${apiPrefix}/stats`, statsRoute);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
