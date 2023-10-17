@@ -5,9 +5,21 @@ const dataset = require('../src/data/dataset');
 
 const { expect } = chai;
 chai.use(chaiHttp);
+const user = { userID: 'Admin', password: 'Admin123' };
+let token;
 
 // Test case for addRecord function
-describe('API Tests', () => {
+describe('Records API Tests', () => {
+  before((done) => {
+    chai
+      .request(app)
+      .post('/api/v1/auth/login')
+      .send(user)
+      .end((err, res) => {
+        token = res.body.token;
+        done();
+      });
+  });
   describe('POST /api/v1/records/add', () => {
     it('should add a new record', (done) => {
       const newRecord = {
@@ -20,6 +32,7 @@ describe('API Tests', () => {
       chai
         .request(app)
         .post('/api/v1/records/add')
+        .set('Authorization', token)
         .send(newRecord)
         .end((err, res) => {
           expect(res).to.have.status(201);
@@ -37,6 +50,7 @@ describe('API Tests', () => {
       chai
         .request(app)
         .delete(`/api/v1/records/delete/${index}`)
+        .set('Authorization', token)
         .end((err, res) => {
           expect(res).to.have.status(200);
           expect(res.body).to.be.a('array');

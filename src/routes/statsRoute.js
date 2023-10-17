@@ -6,10 +6,11 @@ const {
   getDepartmentStats,
   getSubDepartmentStats,
 } = require("../controllers/statsController");
+const authMiddleware = require("../middleware/auth");
 
-router.get("/all", getAllStats);
-router.get("/contract", getContractStats);
-router.get("/departments", getDepartmentStats);
-router.get("/subdepartments", getSubDepartmentStats);
+router.get("/all", authMiddleware, getAllStats);
+router.get("/contract", authMiddleware, getContractStats);
+router.get("/departments", authMiddleware, getDepartmentStats);
+router.get("/subdepartments", authMiddleware, getSubDepartmentStats);
 
 module.exports = router;

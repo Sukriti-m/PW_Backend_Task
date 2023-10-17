@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const recordsRoute = require("./src/routes/recordsRoute");
 const statsRoute = require("./src/routes/statsRoute");
+const loginRoute = require("./src/routes/loginRoute");
 
 const app = express();
 app.use(express.json());
@@ -12,6 +13,7 @@ app.get("/", (req, res) => {
 });
 
 const apiPrefix = "/api/v1";
+app.use(`${apiPrefix}/auth`, loginRoute);
 app.use(`${apiPrefix}/records`, recordsRoute);
 app.use(`${apiPrefix}/stats`, statsRoute);
 

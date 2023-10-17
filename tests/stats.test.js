@@ -4,13 +4,27 @@ const app = require("../app");
 const {expect} = chai;
 
 chai.use(chaiHttp);
+const user = { userID: 'Admin', password: 'Admin123' };
+let token;
 
 // Test case for getAllStats function
+describe('Stats API Tests',()=>{
+  before((done) => {
+    chai
+      .request(app)
+      .post('/api/v1/auth/login')
+      .send(user)
+      .end((err, res) => {
+        token = res.body.token;
+        done();
+      });
+  });
 describe("GET /api/v1/stats/all", () => {
   it("should return summary stats for all records", (done) => {
     chai
       .request(app)
       .get("/api/v1/stats/all")
+      .set('Authorization', token)
       .end((err, res) => {
         expect(res).to.have.status(200);
         expect(res.body).to.be.an("object");
@@ -31,6 +45,7 @@ describe("GET /api/v1/stats/contract", () => {
     chai
       .request(app)
       .get("/api/v1/stats/contract")
+      .set('Authorization', token)
       .end((err, res) => {
         expect(res).to.have.status(200);
         expect(res.body).to.be.an("object");
@@ -48,6 +63,7 @@ describe("GET /api/v1/stats/departments", () => {
     chai
       .request(app)
       .get("/api/v1/stats/departments")
+      .set('Authorization', token)
       .end((err, res) => {
         expect(res).to.have.status(200);
         expect(res.body).to.be.an("object");
@@ -66,6 +82,7 @@ describe("GET /api/v1/stats/subdepartments", () => {
     chai
       .request(app)
       .get("/api/v1/stats/subdepartments")
+      .set('Authorization', token)
       .end((err, res) => {
         expect(res).to.have.status(200);
         expect(res.body).to.be.an("object");
@@ -76,4 +93,5 @@ describe("GET /api/v1/stats/subdepartments", () => {
         done();
       });
   });
+});
 });
