@@ -47,7 +47,7 @@ const getDepartmentStats = (req, res) => {
       stats[department].push(salary);
     }
   });
-  console.log(stats);
+  //console.log(stats);
   const SS = {};
   for (const department in stats) {
     const salaries = stats[department];
@@ -78,7 +78,7 @@ const getSubDepartmentStats = (req, res) => {
       stats[key].push(salary);
     }
   });
-console.log(stats);
+    //console.log(stats);
 
   const SS = {};
   for (const key in stats) {
