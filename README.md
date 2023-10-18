@@ -1,4 +1,4 @@
-# PW_Backend_Task
+# Summary_Stats_Backend
 
 ## Installation
 Install the project dependencies:
